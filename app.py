@@ -5,6 +5,7 @@
 # https://github.com/hwchase17/langchain/blob/master/langchain/agents/conversational_chat/base.py
 # https://github.com/hwchase17/langchain/blob/master/langchain/agents/conversational_chat/prompt.py
 
+import ptvsd
 import gradio as gr
 import os, json, sys, re
 from typing import Any, List, Optional, Sequence, Tuple
@@ -24,12 +25,14 @@ from langchain.schema import (
     SystemMessage,
 )
 
+ptvsd.enable_attach()
+
 llm_gpt = ChatOpenAI(
     temperature=0.95,
     model_name="gpt-3.5-turbo",
 )
 search = GoogleSearchAPIWrapper()
-search_news = GoogleSearchAPIWrapper(google_cse_id=os.environ["GOOGLE_CSE_ID_NEWS"])
+search_news = GoogleSearchAPIWrapper(google_cse_id=os.environ["GOOGLE_CSE_ID_NEWS"], k=1)
 tools = [
     Tool(
         name = "News search",

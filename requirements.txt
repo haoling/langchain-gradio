@@ -2,3 +2,4 @@ langchain
 openai
 gradio
 google-api-python-client
+ptvsd
